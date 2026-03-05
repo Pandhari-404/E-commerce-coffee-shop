@@ -29,7 +29,7 @@ def Contact(request):
         phone = request.POST.get('phone')
         email = request.POST.get('email')
         address = request.POST.get('address')
-        datetime.today()
+        # datetime.today()
 
         contact = ContactModel(name=name, phone=phone, email=email, address=address, date=datetime.today())
         contact.save()
@@ -43,7 +43,13 @@ def Contact(request):
             Address: {address}
             """
     
-        send_mail(subject, message, 'pandharipawde018@gmail.com', ['pandharipawde018@gmail.com'], fail_silently=False,)
+        send_mail(
+            subject, 
+            message, 
+            'pandharipawde018@gmail.com', 
+            ['pandharipawde018@gmail.com'], 
+            fail_silently=False,
+        )
         messages.success(request, " Yor message has been sent successfully!")
     return render(request, 'Contact.html', {'coffee' : Coffee})
 
