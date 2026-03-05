@@ -14,7 +14,7 @@ def home(request):
 
 
 def About(request):
-    return render(request, 'About.html', {'coffee' : Coffee})
+    return render(request, 'about.html', {'coffee' : Coffee})
 
 # def My_Cart(request):
 #     return render(request, 'My Cart.html', {'coffee' : Coffee})
