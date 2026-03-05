@@ -34,16 +34,17 @@ def Contact(request):
         contact = ContactModel(name=name, phone=phone, email=email, address=address, date=datetime.today())
         contact.save()
     # Send email notification to admin
-    subject = f"New Contact Message from {name}"
-    message = f"""
-        Name: {name}
-        Phone: {phone}
-        Email: {email}
-        Address: {address}
-        """
+
+        subject = f"New Contact Message from {name}"
+        message = f"""
+            Name: {name}
+            Phone: {phone}
+            Email: {email}
+            Address: {address}
+            """
     
-    send_mail(subject, message, 'pandharipawde018@gmail.com', ['pandharipawde018@gmail.com'], fail_silently=False)
-    messages.success(request, " Yor message has been sent successfully!")
+        send_mail(subject, message, 'pandharipawde018@gmail.com', ['pandharipawde018@gmail.com'], fail_silently=False,)
+        messages.success(request, " Yor message has been sent successfully!")
     return render(request, 'Contact.html', {'coffee' : Coffee})
 
 # New Logic:
