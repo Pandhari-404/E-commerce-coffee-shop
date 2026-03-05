@@ -5,6 +5,9 @@ from datetime import datetime
 from .models import Coffee, CartItem, Contact as ContactModel
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.conf import settings
+from django.shortcuts import render
 # Create your views here.
 
 
@@ -30,8 +33,17 @@ def Contact(request):
 
         contact = ContactModel(name=name, phone=phone, email=email, address=address, date=datetime.today())
         contact.save()
-
-        messages.success(request, " Yor message has been sent successfully!")
+    # Send email notification to admin
+    subject = f"New Contact Message from {name}"
+    message = f"""
+        Name: {name}
+        Phone: {phone}
+        Email: {email}
+        Address: {address}
+        """
+    
+    send_mail(subject, message, 'pandharipawde018@gmail.com', ['pandharipawde018@gmail.com'], fail_silently=False)
+    messages.success(request, " Yor message has been sent successfully!")
     return render(request, 'Contact.html', {'coffee' : Coffee})
 
 # New Logic:
