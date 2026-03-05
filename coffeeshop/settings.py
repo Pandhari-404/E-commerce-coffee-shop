@@ -28,6 +28,7 @@ SECRET_KEY = "django-insecure-+s^tgpq^8#w@5wca9n$o=-(skas%e=7h!*n42)mpj=4bl%c-)@
 DEBUG = True
 
 ALLOWED_HOSTS = ['e-commerce-coffee-shop.onrender.com',
+    '*.onrender.com',
     '127.0.0.1', 
     'localhost',]
 
