@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% load static %}
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .checkout-header {
+            background: linear-gradient(90deg, #ff6a6a, #ffa500);
+            padding: 60px 0;
+            color: #070000;
+            text-align: center;
+        }
+        .card-box {
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .place-order-btn {
+            background: linear-gradient(90deg, #ff6a6a, #ff8c8c);
+            border: none;
+            color: #fff;
+            padding: 14px;
+            border-radius: 30px;
+            font-size: 18px;
+        }
+        .place-order-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+
+<!-- HEADER -->
+<div class="checkout-header">
+    <h1>🧾 Checkout</h1>
+    <p>Complete your order.</p>
+</div>
+
+<!-- CONTENT -->
+<div class="container my-5">
+    <div class="row g-4">
+
+        <!-- ORDER SUMMARY -->
+        <div class="col-md-6">
+            <div class="card card-box p-4">
+                <h5 class="mb-3">Order Summary</h5>
+                
+                {% for item in items %}
+                <div class="d-flex justify-content-between">
+                    <span>{{ item.name }} * {{ item.qty }}</span>
+                    <strong>${{ item.coffee.price }}</strong>
+                </div>
+                <hr>
+                {% endfor %}
+                
+
+
+                <div class="d-flex justify-content-between">
+                    <span>Subtotal:</span>
+                    <strong>${{ total }}</strong>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <span>Delivery:</span>
+                    <strong>$5.0</strong>
+                </div>
+
+                <hr>
+                <div class="d-flex justify-content-between text-danger fs-5">
+                    <strong>Grand Total:</strong>
+                    <strong>${{ total }}</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAYMENT METHOD -->
+        <div class="col-md-6">
+            <div class="card card-box p-4">
+                <h5 class="mb-3">Payment Method</h5>
+
+                <div class="form-check mb-4">
+                    <input class="form-check-input" type="radio" checked>
+                    <label class="form-check-label">
+                        💵 Cash on Delivery
+                    </label>
+                </div>
+
+                <form method="POST" action="{% url 'order_success'%}">
+                    {% csrf_token %}
+                    <button type="submit" class="bi bi-check-circle btn btn-danger w-100 mt-3">
+                         Place Order
+                    </button>
+                    
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+{% endblock body %}

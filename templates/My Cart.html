@@ -1,0 +1,118 @@
+
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="card mb-3">
+  <div class="card-body text-center text-white p-5 rounded bg-warning" style="background: linear-gradient(90deg, #ff6a00, #ffb347);">
+    <h2 class="card-title text-black fw-bold"> 🛒 Shopping Cart</h5>
+    <p class="card-text text-black mb-0">Review your items before checkout</p>
+    <p class="card-text"><small class="text-body-secondary"></small></p>
+  </div>
+</div>
+
+
+<section class="h-100">
+  <div class="container h-100 py-5">
+    <div class="row d-flex justify-content-center align-items-start h-100">
+
+      <!-- Cart Items -->
+       <div class="col-md-8">
+
+        {% if items %}
+          {% for item in items %}
+          <div class="card rounded-3 mb-4">
+            <div class="card-body p-4">
+              <div class="row d-flex align-items-center justify-content-between">
+
+                <!-- Product Image -->
+                <div class="col-md-2">
+                  <img src="{{ item.coffee.image }}"
+                       class="img-fluid rounded"
+                       alt="{{ item.coffee.name }}">
+                </div>
+
+                <!-- Product Name + Price -->
+                <div class="col-md-4">
+                  <h6 class="mb-1 fw-bold">{{ item.coffee.name }}</h6>
+                  <span class="text-danger">${{ item.coffee.price }}</span>
+                </div>
+
+                <!-- Quantity Controls -->
+                <div class="col-md-3 text-center">
+                  <form method="post" action="{% url 'update_cart_quantity' item.id %}">
+                    {% csrf_token %}
+                    <button type="submit" name="action" value="decrease"
+                            class="btn btn-sm btn-danger">−</button>
+
+                    <span class="mx-2 fw-bold">{{ item.quantity }}</span>
+
+                    <button type="submit" name="action" value="increase"
+                            class="btn btn-sm btn-danger">+</button>
+                  </form>
+                </div>
+
+                <!-- Item Total -->
+                <div class="col-md-2 fw-bold">
+                  ${{ item.total_price }}
+                </div>
+
+                <!-- Remove -->
+                <div class="col-md-1 text-end">
+                  <form method="post" action="{% url 'remove_cart_item' item.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                      ✖
+                    </button>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-center">Your cart is empty.</p>
+        {% endif %}
+      </div>
+
+      <!-- Order Summary -->
+      <div class="col-md-4">
+        <div class="card p-4">
+          <h5 class="fw-bold">Order Summary</h5>
+          <hr>
+
+          <div class="d-flex justify-content-between">
+            <span>Subtotal</span>
+            <span>${{ total }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <span>Delivery</span>
+            <span>$5.0</span>
+          </div>
+
+          <hr>
+
+          <div class="d-flex justify-content-between fw-bold text-danger">
+            <span>Total</span>
+            <span> ${{ total }}</span>
+          </div>
+
+          <a href="{% url 'checkout' %}" class="btn btn-danger w-100 mt-3">
+            Proceed to Checkout
+          </a>
+
+          <a href="{% url 'home' %}" class="btn btn-warning w-100 mt-2">
+            ← Continue Shopping
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+{% endblock body %} 

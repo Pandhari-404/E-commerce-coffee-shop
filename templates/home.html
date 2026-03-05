@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <style>
+      .like-btn {
+        border-radius: 40%;
+      }
+
+      .like-toggle:checked + .like-btn i {
+        color: red;
+      }
+
+      .like-btn i {
+        color: #555;
+        transition: 0.3s ease, transform 0.2s ease;
+      } 
+
+      .like-btn:hover i {
+        transform: scale(1.2);
+      }
+
+      .like-toggle:checked + .like-btn i {
+        color: #ff0000 !important;
+      }
+
+      .like-toggle:checked + .like-btn i::before {
+        content: "\f415";
+      }
+
+      {% comment %} Card Hover {% endcomment %}
+      .hover-card {
+        transition: all 0.3s ease;
+      }
+
+      .hover-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 .75rem 1.5rem rgba(0,0,0,0.15) !important;
+      }
+      .item-card {
+        transition: all 0.3s ease;
+      }     
+      
+      {% comment %} Coffee Image Hover effect {% endcomment %}
+
+       .card {
+        overflow: hidden;
+        transition: all 0.1s ease;
+      } 
+
+      .coffee-img {
+        height: 220px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }       
+
+      /* Lift card slightly */
+      .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 .75rem 1.5rem rgba(0,0,0,0.15) !important;
+      }
+
+    </style>
+
+
+<div class="card mb-3">
+  <div class="card-body text-center text-white p-5 rounded bg-warning" style="background: linear-gradient(90deg, #ff6a00, #ffb347);">
+    <h2 class="card-title text-black fw-bold"><i class="bi bi-house-door me-1"></i> Home</h5>
+    <p class="card-text text-black mb-0">Experience exceptional coffee, refined flavors, and service you can trust.</p>
+    <p class="card-text"><small class="text-body-secondary"></small></p>
+  </div>
+</div>
+
+
+<div class="container mt-4">
+    <div class="row g-4 gy-5">
+        {% for coffee in coffee %}
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+            <div class="card h-100 shadow-sm border-1 position-relative">
+
+                <!-- Hidden like toggle -->
+                <input type="checkbox" name="coffee_id" value="{{ coffee.id }}" id="like{{ forloop.counter }}" class="d-none like-toggle">
+                <label for="like{{ forloop.counter }}" class="btn btn-light position-absolute top-0 start-0 m-2 like-btn">
+                    <i class="bi bi-heart fs-13"></i>
+                </label>
+
+                <!-- Coffee image -->
+                <img src="{{ coffee.image }}" class="card-img-top coffee-img" style="height:220px; object-fit:cover;" alt="{{ coffee.name }}">
+
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">{{ coffee.name }}</h5>
+                    <p class="card-text text-muted">Price : ${{ coffee.price }}</p>
+
+                    <!-- Add to Cart Form -->
+                    <div class="d-grid">
+                        <form method="post" action="{% url 'add_to_cart' coffee.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-primary"><i class="bi bi-cart-plus me-1"></i>-Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<br>
+
+<div class="container my-5">
+  <div class="row g-4 text-center">
+
+    <div class="col-md-3">
+      <div class="card h-100 border-0 shadow-sm hover-card">
+        <div class="card-body py-4">
+          <i class="bi bi-award fs-1 text-danger mb-3"></i>
+          <h6 class="fw-bold">Premium Quality</h6>
+          <p class="text-muted small mb-0">
+            Only the finest ingredients in every bite
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card h-100 border-0 shadow-sm hover-card">
+        <div class="card-body py-4">
+          <i class="bi bi-clock fs-1 text-danger mb-3"></i>
+          <h6 class="fw-bold">Super Speed</h6>
+          <p class="text-muted small mb-0">
+            10 minute delivery
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card h-100 border-0 shadow-sm hover-card">
+        <div class="card-body py-4">
+          <i class="bi bi-truck fs-1 text-danger mb-3"></i>
+          <h6 class="fw-bold">Fast Delivery</h6>
+          <p class="text-muted small mb-0">
+            Quick and reliable delivery service
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card h-100 border-0 shadow-sm hover-card">
+        <div class="card-body py-4">
+          <i class="bi bi-heart fs-1 text-danger mb-3"></i>
+          <h6 class="fw-bold">Made with Love</h6>
+          <p class="text-muted small mb-0">
+            Every product crafted with care
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock body %}
