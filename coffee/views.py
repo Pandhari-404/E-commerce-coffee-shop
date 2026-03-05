@@ -1,5 +1,6 @@
 from urllib import request
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from datetime import datetime
 from .models import Coffee, CartItem, Contact as ContactModel
@@ -76,7 +77,7 @@ def add_to_cart(request, coffee_id):
         messages.success(request, f"{coffee.name} added to cart")
     return redirect(request.META.get('HTTP_REFERER', 'home'))
 
-# 2
+@login_required
 def My_Cart(request):
     items = CartItem.objects.filter(user=request.user)
     total = sum(item.total_price() for item in items)
