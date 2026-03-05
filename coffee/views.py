@@ -13,7 +13,7 @@ def home(request):
     return render(request, 'home.html', {'coffee': coffee})
 
 
-def About(request):
+def about(request):
     return render(request, 'about.html', {'coffee' : Coffee})
 
 # def My_Cart(request):
