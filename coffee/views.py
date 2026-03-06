@@ -77,7 +77,6 @@ def add_to_cart(request, coffee_id):
         messages.success(request, f"{coffee.name} added to cart")
     return redirect(request.META.get('HTTP_REFERER', 'home'))
 
-@login_required
 def My_Cart(request):
     items = CartItem.objects.filter(user=request.user)
     total = sum(item.total_price() for item in items)
