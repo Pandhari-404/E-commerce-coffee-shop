@@ -56,7 +56,7 @@ def Contact(request):
 
 # New Logic:
 
-# 1
+
 def add_to_cart(request, coffee_id):
     if request.method == 'POST':
     
@@ -86,7 +86,7 @@ def My_Cart(request):
         'total' : total,
     })
 
-# 3
+
 def update_cart_quantity(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
 
@@ -100,7 +100,7 @@ def update_cart_quantity(request, item_id):
 
     return redirect('my cart')
 
-# 4
+
 def remove_cart_item(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
     cart_item.delete()
@@ -118,11 +118,11 @@ def order_success(request):
         "email": email
     })
 
-# 5
+
 def checkout(request):
     return render(request, 'checkout.html')
 
-# 6
+
 def order_success(request):
     return render(request, 'order_success.html')
 
