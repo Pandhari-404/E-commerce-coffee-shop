@@ -137,7 +137,7 @@ STATICFILES_DIRS = [
 
 
 
-LOGIN_REDIRECT_URL = '/my-cart/'  # or '/cart/' if you updated the cart URL
+# LOGIN_REDIRECT_URL = '/my-cart/'  # or '/cart/' if you updated the cart URL
 
 # Email settings for contact form
 
