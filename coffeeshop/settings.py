@@ -136,9 +136,6 @@ STATICFILES_DIRS = [
 ]
 
 
-
-# LOGIN_REDIRECT_URL = '/my-cart/'  # or '/cart/' if you updated the cart URL
-
 # Email settings for contact form
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
