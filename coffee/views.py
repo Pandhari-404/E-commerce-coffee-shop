@@ -35,25 +35,25 @@ def Contact(request):
         contact.save()
     # Send email notification to admin
 
-        subject = f"New Contact Message from {name}"
-        message = f"""
-            Name: {name}
-            Phone: {phone}
-            Email: {email}
-            Address: {address}
-            """
+        # subject = f"New Contact Message from {name}"
+        # message = f"""
+        #     Name: {name}
+        #     Phone: {phone}
+        #     Email: {email}
+        #     Address: {address}
+        #     """
         
-        try:
-            send_mail(
-                subject, 
-                message, 
-                settings.EMAIL_HOST_USER,
-                ['pandharipawde018@gmail.com'], 
-                fail_silently=True,
-            )
-            messages.success(request, " Yor message has been sent successfully!")
-        except Exception as e:
-            messages.error(request, "Failed to send message. Please try again.")
+        # try:
+        #     send_mail(
+        #         subject, 
+        #         message, 
+        #         settings.EMAIL_HOST_USER,
+        #         ['pandharipawde018@gmail.com'], 
+        #         fail_silently=True,
+        #     )
+        #     messages.success(request, " Yor message has been sent successfully!")
+        # except Exception as e:
+        #     messages.error(request, "Failed to send message. Please try again.")
     coffee = Coffee.objects.all()
     return render(request, 'Contact.html', {'coffee' : coffee})
 
