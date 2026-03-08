@@ -48,7 +48,7 @@ def Contact(request):
             message, 
             'pandharipawde018@gmail.com', 
             ['pandharipawde018@gmail.com'], 
-            fail_silently=False,
+            fail_silently=True,
         )
         messages.success(request, " Yor message has been sent successfully!")
     return render(request, 'Contact.html', {'coffee' : Coffee})
