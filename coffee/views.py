@@ -1,4 +1,3 @@
-from urllib import request
 from django.shortcuts import render, redirect, get_object_or_404
 # from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -62,8 +61,10 @@ def add_to_cart(request, coffee_id):
     
         coffee = get_object_or_404(Coffee, id=coffee_id)
 
+        # cart_item, created = CartItem.objects.get_or_create(
+        #     user = request.user,
+        #     coffee=coffee,
         cart_item, created = CartItem.objects.get_or_create(
-            user = request.user,
             coffee=coffee,
         )
     
@@ -78,7 +79,8 @@ def add_to_cart(request, coffee_id):
     return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 def My_Cart(request):
-    items = CartItem.objects.filter(user=request.user)
+    items = CartItem.objects.all()
+    # items = CartItem.objects.filter(user=request.user)
     total = sum(item.total_price() for item in items)
 
     return render(request, 'My Cart.html',{
@@ -88,7 +90,8 @@ def My_Cart(request):
 
 
 def update_cart_quantity(request, item_id):
-    cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
+    cart_item = get_object_or_404(CartItem, id=item_id)
+    # cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
 
     if request.method == "POST":
         action = request.POST.get('action')
@@ -102,9 +105,9 @@ def update_cart_quantity(request, item_id):
 
 
 def remove_cart_item(request, item_id):
-    cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
+    cart_item = get_object_or_404(CartItem, id=item_id)
+    # cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
     cart_item.delete()
-    # messages.success(request, f"{cart_item.coffee.name} removed from cart")
     return redirect('my cart')  
 
 # Message:
