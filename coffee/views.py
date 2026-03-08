@@ -101,7 +101,7 @@ def update_cart_quantity(request, item_id):
             cart_item.quantity -= 1
         cart_item.save()
 
-    return redirect('my cart')
+    return redirect('mycart')
 
 
 def remove_cart_item(request, item_id):
