@@ -108,7 +108,7 @@ def remove_cart_item(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id)
     # cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
     cart_item.delete()
-    return redirect('my cart')  
+    return redirect('mycart')  
 
 # Message:
 
