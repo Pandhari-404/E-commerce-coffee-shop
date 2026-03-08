@@ -35,7 +35,7 @@ class Coffee(models.Model):
 class CartItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
-    coffee = models.ForeignKey(Coffee, on_delete=models.CASCADE, null=True, blank=True)
+    coffee = models.ForeignKey(Coffee, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
     def total_price(self):

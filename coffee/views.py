@@ -62,12 +62,9 @@ def Contact(request):
 
 def add_to_cart(request, coffee_id):
     if request.method == 'POST':
-    
         coffee = get_object_or_404(Coffee, id=coffee_id)
 
-        # cart_item, created = CartItem.objects.get_or_create(
-        #     user = request.user,
-        #     coffee=coffee,
+        
         cart_item, created = CartItem.objects.get_or_create(
             coffee=coffee,
         )
