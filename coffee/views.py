@@ -42,16 +42,20 @@ def Contact(request):
             Email: {email}
             Address: {address}
             """
-    
-        send_mail(
-            subject, 
-            message, 
-            'pandharipawde018@gmail.com', 
-            ['pandharipawde018@gmail.com'], 
-            fail_silently=True,
-        )
-        messages.success(request, " Yor message has been sent successfully!")
-    return render(request, 'Contact.html', {'coffee' : Coffee})
+        
+        try:
+            send_mail(
+                subject, 
+                message, 
+                settings.EMAIL_HOST_USER,
+                ['pandharipawde018@gmail.com'], 
+                fail_silently=True,
+            )
+            messages.success(request, " Yor message has been sent successfully!")
+        except Exception as e:
+            messages.error(request, "Failed to send message. Please try again.")
+    coffee = Coffee.objects.all()
+    return render(request, 'Contact.html', {'coffee' : coffee})
 
 # New Logic:
 
